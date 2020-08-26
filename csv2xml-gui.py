@@ -87,7 +87,12 @@ class Cs2Xml_Gui:
             self.csv_file_name.set("")
             self.output_file_path.set("")
             self.Source_model.set(self.default_sm)
-        self.createPopup(wtitle="Complete",wdescription="File converted.\nConvert another file?",yfunc=yes,wtype="yn")
+
+        if os.path.exists(self.output_file_path.get()):
+            self.createPopup(wtitle="Complete",wdescription="File converted.\nConvert another file?",yfunc=yes,wtype="yn",nfunc=lambda:self.master.quit())
+        else:
+            self.createPopup(wtitle="Error",wdescription="Error converting file.")
+
         return True
     def placeInCenter(self, width,height,window=None,place=True): #fixes x,y placement of window
         if window is None:
