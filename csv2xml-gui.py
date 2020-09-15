@@ -77,12 +77,8 @@ class Cs2Xml_Gui:
         if self.output_file_path.get() == "":
             self.createPopup(wtitle="Error",wdescription="Please enter/select a proper CSV file")
             return False
-        try:
-            cs2exe_gen(self.csv_file_name.get(),self.output_file_path.get(),self.Source_model.get())
-        except:
-            print("Error in generation")
-            self.createPopup(wtitle="Error",wdescription="Error in file conversion.\nDouble check your CSV file")
-            return False
+        cs2exe_gen(self.csv_file_name.get(),self.output_file_path.get(),self.Source_model.get())
+
         def yes():
             self.csv_file_name.set("")
             self.output_file_path.set("")
