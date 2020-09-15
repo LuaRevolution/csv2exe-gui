@@ -57,13 +57,13 @@ class Cs2Xml_Gui:
         self.convert_o = wim.SubmitButton(self.master,buttontext="Generate",donotdestroy=True,command=self.submit)
     def select_csv(self):
         tempfilepath = filedialog.askopenfilename(initialdir = os.getcwd(),title = "Select file",filetypes = (("CSV files","*.csv"),("all files","*.*")))
-        if tempfilepath is not "":
+        if tempfilepath != "":
             self.csv_file_name.set(tempfilepath)
         else:
             return "User canceled save"
     def select_output(self):
         tempfilepath = filedialog.asksaveasfilename(initialdir = os.getcwd(),title = "Select file",defaultextension=".xml",filetypes = (("XML file","*.xml"), ("all files","*.*")))
-        if tempfilepath is not "":
+        if tempfilepath != "":
             self.output_file_path.set(tempfilepath)
         else:
             return "User canceled save"
@@ -77,7 +77,13 @@ class Cs2Xml_Gui:
         if self.output_file_path.get() == "":
             self.createPopup(wtitle="Error",wdescription="Please enter/select a proper CSV file")
             return False
-        cs2exe_gen(self.csv_file_name.get(),self.output_file_path.get(),self.Source_model.get())
+        try:
+            cs2exe_gen(self.csv_file_name.get(),self.output_file_path.get(),self.Source_model.get())
+        except Exception as e:
+            print(e)
+            self.createPopup(wtitle="Error",wdescription=e)
+            return False
+
 
         def yes():
             self.csv_file_name.set("")
@@ -110,7 +116,7 @@ class Cs2Xml_Gui:
         bframe = tk.Frame(top)
         bframe.pack()
 
-        desc = tk.Label(frame,text=wdescription)
+        desc = tk.Label(frame,text=wdescription,wraplength=300)
         desc.configure(height=3)
         desc.pack()
 

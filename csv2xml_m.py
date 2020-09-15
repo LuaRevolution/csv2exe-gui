@@ -497,7 +497,7 @@ def generate(csv_file_name,output_file_path,source_model_name):
     		row_index += 1
 
     if rows[0][0] != 'source type':
-    	exit('First line of csv file must be "source type"')
+    	raise Exception('First line of csv file must be "source type"')
 
     for i in range(len(source_type_indexes)):
     	start_index = source_type_indexes[i]
@@ -511,7 +511,7 @@ def generate(csv_file_name,output_file_path,source_model_name):
 
     # თუ გვაქვს შეცდომები დავბეჭდოთ და დავხუროთ სკრიპტი
     if errors:
-    	exit("Errors:\n" + errors)
+    	raise Exception("Errors:\n" + errors)
 
     # aq iqmneba xml failis root element tegi tavisi atributebit da qve elementebit
     # romelic saerto ikneba shemdgomshi yvela dagenerirebuli source_element- istvis
